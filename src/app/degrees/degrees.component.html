@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row margin">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+      <button (click)="openModal(addForm)" type="button" class="btn btn-info btn-lg btn-block">Add Degree</button>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+      <table  style="text-align: center" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Degree Title</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Semesters</th>
+            <th scope="col">Courses Details</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let degree of degrees">
+          <tr class="table-primary">
+            <td>{{degree.title}}</td>
+            <td>{{degree.durationInMonths}}</td>
+            <td>{{degree.semesters}}</td>
+            <td>
+              <button (click)="openDegreeDetailsModal(degreeDetailsModal,degree)" type="button" class="btn btn-info btn-lg btn-sm">Offered To</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<ng-template #addForm>
+  <app-add-degree></app-add-degree>
+</ng-template>
+
+<ng-template #degreeDetailsModal>
+  <div id="head" class="modal-header bg-primary" style="text-align: center">
+
+    <h2 class="" style="color:white;opacity:.9;margin-left:30%;text-align: center;display: inline-block;">{{selectedDegree.title}}</h2>
+    <button style="top:0" (click)="closeModal()" type="button" class="close pull-right">x</button>
+
+  </div>
+
+
+  <div class="modal-body">
+  <h5>Number Of Semesters: {{selectedDegree.semesters}}</h5>
+  <h5>Number Of Months: {{selectedDegree.durationInMonths}}</h5>
+  <div>
+    <ul *ngFor="let courses of selectedDegree.courses">
+      <li style="list-style: none">
+        <div class="alert alert-dismissible alert-primary">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>{{courses.semester}}</strong> <a href="#" class="alert-link"></a>.
+          <ng-template>
+            <ul *ngFor="let offeredCourses of courses.offeredCourses">
+              <li style="list-style: none">
+                {{offeredCourses}}
+              </li>
+            </ul>
+          </ng-template>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  </div>
+</ng-template>
+

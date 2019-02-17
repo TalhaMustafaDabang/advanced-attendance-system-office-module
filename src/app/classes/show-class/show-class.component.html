@@ -1,0 +1,64 @@
+<div class="jumbotron">
+  <h1 style="text-align: center;margin-top: -50px" class="display-3">{{classes.id}}</h1>
+  <br>
+  <div class=row>
+    <div class="col">
+        <button (click)="showClassInfoFunc()" type="button" class="btn btn-secondary btn-lg btn-block">Show Class Info</button>
+    </div>
+    <div class="col">
+        <button (click)="editClassInfoFunc()" type="button" class="btn btn-info btn-lg btn-block">Edit Class Info</button>
+    </div>
+    <div class="col">
+        <button (click)="showClassStudentsFunc()" type="button" class="btn btn-success btn-lg btn-block">Show Students</button>
+    </div>
+  </div>
+
+  <ul *ngIf="showClassInfo" class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Students Count
+      <span class="largeFont badge badge-primary badge-pill">
+        {{classes.currentStudentsId.length}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Current Semester
+        <span class="largeFont badge badge-primary badge-pill">
+          {{classes.status}}
+        </span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+          Section
+          <span class="largeFont badge badge-primary badge-pill">
+            {{classes.section}}
+          </span>
+        </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Degree
+      <span class="largeFont badge badge-primary badge-pill">
+        {{classes.degree}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Enrollment Year
+      <span class="largeFont badge badge-primary badge-pill">
+        {{classes.enrollmentYear}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Passing Out Year
+      <span class="largeFont badge badge-primary badge-pill">
+        {{classes.passingOutYear}}
+      </span>
+    </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+          Shift
+          <span class="largeFont badge badge-primary badge-pill">
+            {{classes.shift}}
+          </span>
+        </li>
+  </ul>
+  <hr class="my-4">
+</div>
+
+
+
