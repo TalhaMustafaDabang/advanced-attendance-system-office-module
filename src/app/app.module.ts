@@ -1,3 +1,4 @@
+import { AuthServiceService } from './services/auth-service.service';
 import { ModelsService } from './services/models.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,7 @@ import { AddClassComponent } from './classes/add-class/add-class.component';
 
 
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, FirebaseAuth } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -72,9 +73,10 @@ import { ShowClassComponent } from './classes/show-class/show-class.component';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     AngularFirestoreModule,
+
   ],
   exports:[ModalModule],
-  providers: [ModelsService,DatabaseServiceService],
+  providers: [ModelsService,DatabaseServiceService,AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

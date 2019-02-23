@@ -57,8 +57,38 @@
           </span>
         </li>
   </ul>
+
+
+
+  <div *ngIf="showClassStudents" class="row margin">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+        <table  style="text-align: center" class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Enrollement Id</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Father Name</th>
+              <th scope="col">Class</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let student of students">
+            <tr class="table-primary">
+              <th scope="row">{{student.enrollmentId}}</th>
+              <td>{{student.firstName}}</td>
+              <td>{{student.fatherName}}</td>
+              <td>{{student.class}}</td>
+              <td>{{student.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
   <hr class="my-4">
-</div>
+
 
 
 

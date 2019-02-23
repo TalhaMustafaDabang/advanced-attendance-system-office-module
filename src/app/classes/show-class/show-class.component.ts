@@ -2,6 +2,7 @@ import { Class } from './../../interfaces/Iclass';
 import { DatabaseServiceService } from './../../services/database-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Students } from 'src/app/interfaces/Istudent';
 
 @Component({
   selector: 'app-show-class',
@@ -13,14 +14,15 @@ export class ShowClassComponent implements OnInit {
   showClassInfo:boolean=true;
   editClassInfo:boolean=false;
   showClassStudents:boolean=false;
-
+  students: Students[];
 
   constructor(private activatedRoute: ActivatedRoute,private dbs: DatabaseServiceService) {
     let classId = this.activatedRoute.snapshot.paramMap.get('id');
     this.dbs.getClass(classId).subscribe((classes)=>{
       this.classes=classes;
       console.log(this.classes);
-    })
+    });
+    this.dbs.getStudentsByProperty('class',classId).subscribe((students)=>{this.students=students});
   }
 
   showClassInfoFunc(){

@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Class } from './../interfaces/Iclass';
 import { Degrees } from './../interfaces/Idegree';
 import { Course } from './../interfaces/Icourse';
@@ -43,10 +44,19 @@ export class DatabaseServiceService {
   }
 
 
+  getStudentsByProperty(property:string,classId:string)
+  {
+    let queryStudentsCollection: AngularFirestoreCollection<Students>;
+    queryStudentsCollection = this.afs.collection('Students', ref => ref.where(property,'==',classId));
+    let studentsOfQuery = queryStudentsCollection.valueChanges();
+    return studentsOfQuery;
+  }
+
+
   addStudents(student: Students):Promise<any>
   {
    return new Promise((resolve,reject)=>{
-      this.coursesCollection.doc(student.enrollmentId).set(student)
+      this.studentsCollection.doc(student.enrollmentId).set(student)
     .then((student)=>{resolve (student)})
     .catch((err)=>{console.log(err);reject (err)})
 
@@ -56,6 +66,7 @@ export class DatabaseServiceService {
 
 
   getStudents(){
+    this.students=this.studentsCollection.valueChanges();
     return this.students;
   }
 

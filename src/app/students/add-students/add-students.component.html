@@ -1,3 +1,74 @@
-<p>
-  add-students works!
-</p>
+<div id="head" class="modal-header bg-primary" style="text-align: center">
+
+    <h2 class="" style="color:white;opacity:.9;margin-left:30%;text-align: center;display: inline-block;">Add Student</h2>
+    <button style="top:0" (click)="closeModal()" type="button" class="close pull-right">x</button>
+
+  </div>
+
+
+  <div class="modal-body">
+
+  <form class="form-horizontal" *ngIf="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="addStudent(addStudentForm.value)">
+
+
+
+    <fieldset>
+      <div class="form-group">
+        <label class="control-label" for="focusedInput">First Name</label>
+        <input formControlName="firstName" class="form-control" id="focusedInput" type="text">
+      </div>
+
+
+      <div class="form-group">
+          <label class="control-label" for="focusedInput">Last Name</label>
+          <input formControlName="lastName" class="form-control" id="focusedInput" type="text">
+        </div>
+
+
+
+      <div class="form-group">
+          <label class="control-label" for="focusedInput">Father Name</label>
+          <input formControlName="fatherName" class="form-control" id="focusedInput" type="text">
+        </div>
+
+
+      <div class="form-group">
+        <label class="control-label" for="focusedInput">Age</label>
+        <input formControlName="age" class="form-control" id="focusedInput" type="number">
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label" for="focusedInput">Current Semester</label>
+        <input formControlName="status" class="form-control" id="focusedInput" type="number">
+      </div>
+
+        <div class="form-group">
+          <label class="control-label" for="focusedInput">Enrollment Id</label>
+          <input formControlName="enrollmentId" class="form-control" id="focusedInput" type="text">
+        </div>
+
+
+      <div class="form-group">
+          <label for="exampleSelect1">Select Class</label>
+          <select formControlName="class" class="form-control" id="exampleSelect1">
+            <option *ngFor="let class of classes" [value]="class.id">{{class.id}}</option>
+          </select>
+        </div>
+
+
+
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+
+
+
+    </fieldset>
+
+
+  </form>
+  </div>

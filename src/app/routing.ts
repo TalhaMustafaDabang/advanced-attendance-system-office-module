@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/auth-guard.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
 import { NgModule } from '@angular/core';
 import { Routes, Router } from '@angular/router';
@@ -18,11 +19,13 @@ export const routes: Routes =
 {
   path:'classs/:id',
   component: ShowClassComponent,
+  canActivate: [AuthGuardService],
 
 },
 {
     path:'home',
     component: HomeComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'sign-in',
@@ -31,32 +34,40 @@ export const routes: Routes =
 {
     path:'sign-up',
     component: SignUpFormComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'students',
     component: StudentsComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'teachers',
     component: TeachersComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'courses',
     component: CoursesComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'degrees',
     component: DegreesComponent ,
+    canActivate: [AuthGuardService],
 },
 {
     path:'classes',
     component: ClassesComponent  ,
+    canActivate: [AuthGuardService],
 },
 {
     path: '',
     component: HomeComponent ,
+    canActivate: [AuthGuardService],
 },
 {
-    path: '**', redirectTo: 'home'
+    path: '**', redirectTo: 'home',
+    canActivate: [AuthGuardService],
 },
 ]
