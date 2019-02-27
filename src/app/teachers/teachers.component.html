@@ -1,3 +1,43 @@
-<p>
-  teachers works!
-</p>
+<div class="container">
+  <div class="row margin">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+      <button (click)="openFormModal(addForm)" type="button" class="btn btn-info btn-lg btn-block">Add Teacher</button>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" >
+      <table  style="text-align: center" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Teacher Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Detp.</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let teacher of teachers">
+          <tr (click)="openClassesInfoPage(teacher)" class="table-primary">
+            <th scope="row">{{teacher.id}}</th>
+            <td>{{teacher.firstName}} {{teacher.lastName}}</td>
+            <td>{{teacher.dept}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<ng-template #addForm>
+  <app-add-teacher></app-add-teacher>
+</ng-template>
+
+<ng-template #info>
+</ng-template>
+

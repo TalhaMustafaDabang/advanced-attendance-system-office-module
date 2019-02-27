@@ -1,3 +1,4 @@
+import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,13 @@ export const routes: Routes =
   canActivate: [AuthGuardService],
 
 },
+{
+  path:'teacher/:id',
+  component: ShowTeacherComponent,
+  canActivate: [AuthGuardService],
+
+},
+
 {
     path:'home',
     component: HomeComponent ,

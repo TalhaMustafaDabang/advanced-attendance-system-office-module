@@ -1,0 +1,107 @@
+<div class="jumbotron">
+  <h1 style="text-align: center;margin-top: -50px" class="display-3">{{teacher.id}}</h1>
+  <br>
+  <div class=row>
+    <div class="col">
+      <button (click)="showTeacherInfoFunc()" type="button" class="btn btn-secondary btn-lg btn-block">Show Teacher Info</button>
+    </div>
+    <div class="col">
+      <button (click)="editTeacherInfoFunc()" type="button" class="btn btn-info btn-lg btn-block">Edit Teacher Info</button>
+    </div>
+    <div class="col">
+      <button (click)="showTeacherCurrentClassesFunc()" type="button" class="btn btn-success btn-lg btn-block">Show
+        Now Teaching</button>
+    </div>
+  </div>
+
+  <ul *ngIf="showTeacherInfo" class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Teacher First Name
+      <span class="largeFont badge badge-primary badge-pill">
+        {{teacher.firstName}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Teacher Last Name
+      <span class="largeFont badge badge-primary badge-pill">
+        {{teacher.lastName}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Id
+      <span class="largeFont badge badge-primary badge-pill">
+        {{teacher.id}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Dept
+      <span class="largeFont badge badge-primary badge-pill">
+        {{teacher.dept}}
+      </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Email
+      <span class="largeFont badge badge-primary badge-pill">
+        {{teacher.email}}
+      </span>
+    </li>
+  </ul>
+
+
+
+  <div *ngIf="addTeachingClasses" class="row margin">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="jumbotron">
+
+        <form class="form-horizontal" *ngIf="addAddTeachingForm" [formGroup]="addAddTeachingForm" (ngSubmit)="addAddTeachingFunc(addAddTeachingForm.value)">
+
+
+
+          <fieldset>
+            <div class="form-group">
+              <label for="exampleSelect1">Select Course</label>
+              <select formControlName="course" class="form-control" id="exampleSelect1">
+                <option *ngFor="let course of courses" [value]="course.title">{{course.title}}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="exampleSelect1">Select Class</label>
+              <select formControlName="calls" class="form-control" id="exampleSelect1">
+                <option *ngFor="let clas of classes" [value]="clas.id">{{clas.id}}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </div>
+
+
+
+
+          </fieldset>
+
+
+        </form>
+        <hr class="my-4">
+<div class="col-lg-4 col-xs-4 col-ms-4 col-sm-12">
+  <ul *ngFor="let teaching of teacher.nowTeaching">
+    <li style="list-style: none;display: inline;">
+      <div class="col-3 card text-white bg-dark mb-3" style="max-width: 20rem;">
+        <div class="card-header">Class And Course</div>
+        <div class="card-body">
+          Class: {{teaching.calss}}
+          Course: {{teaching.course}}
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+      </div>
+    </div>
+  </div>
+</div>

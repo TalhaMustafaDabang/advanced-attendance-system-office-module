@@ -7,6 +7,7 @@ import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { ArrayType } from '@angular/compiler';
 import { Students } from '../interfaces/Istudent';
+import { Teacher } from '../interfaces/Iteacher';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,19 @@ export class DatabaseServiceService {
   private classDoc : AngularFirestoreDocument<Class>;
   class: Observable<Class>;
 
+  private teachersCollection: AngularFirestoreCollection<Teacher>;
+  teachers: Observable<Teacher[]>;
+  private teacherDoc: AngularFirestoreDocument<Teacher>;
+  teacher: Observable<Teacher>;
+
+
+
   constructor(private afs: AngularFirestore) {
+
+    this.teachersCollection= this.afs.collection('Teachers');
+    this.teachers=this.teachersCollection.valueChanges();
+
+
     this.coursesCollection=afs.collection('Courses');
     this.courses=this.coursesCollection.valueChanges();
 
@@ -42,6 +55,45 @@ export class DatabaseServiceService {
 
 
   }
+
+  getTeacherById(id:string)
+  {
+    this.teacherDoc=this.afs.doc<Teacher>(`Teachers/${id}`);
+    this.teacher=this.teacherDoc.valueChanges();
+    return this.teacher;
+  }
+
+  addTeacher(teacher:Teacher):Promise<any>
+  {
+    return new Promise((res,rej)=>{
+      this.teachersCollection.doc(teacher.id).set(teacher).then((teacher)=>{
+        res(teacher);
+      })
+      .catch((err)=>{
+        rej(err);
+      })
+    })
+  }
+
+  getTeachers(){
+    this.teachers=this.teachersCollection.valueChanges();
+    return this.teachers;
+  }
+
+  updateTeacher(id:string,teacher:Teacher):Promise<any>{
+    return new Promise((res,rej)=>{
+        this.teacherDoc=this.afs.doc<Teacher>(`Teachers/${id}`);
+        this.teacherDoc.update(teacher).then((teacher)=>{
+          res(teacher);
+        })
+        .catch((err)=>{
+          rej(err);
+        })
+    });
+  }
+
+
+
 
 
   getStudentsByProperty(property:string,classId:string)
@@ -111,6 +163,7 @@ export class DatabaseServiceService {
 
 
   getCourses(){
+    this.courses=this.coursesCollection.valueChanges();
     return this.courses;
   }
 

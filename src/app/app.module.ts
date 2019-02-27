@@ -39,6 +39,7 @@ import { environment } from 'src/environments/environment';
 import { routes } from './routing';
 import { DatabaseServiceService } from './services/database-service.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
+import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ShowClassComponent } from './classes/show-class/show-class.component';
     FooterComponent,
     ClassesComponent,
     AddClassComponent,
-    ShowClassComponent
+    ShowClassComponent,
+    ShowTeacherComponent
   ],
   imports: [
     BrowserModule,
