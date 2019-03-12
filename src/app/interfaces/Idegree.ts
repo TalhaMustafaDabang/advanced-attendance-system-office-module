@@ -8,4 +8,5 @@ export interface Degrees{
     durationInMonths: number,
     semesters:number,
     courses: coursesWithSemester[],
+    cou: {},
 }

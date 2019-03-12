@@ -1,3 +1,4 @@
+import { Attendance } from './../interfaces/Iattendance';
 import { async } from '@angular/core/testing';
 import { Class } from './../interfaces/Iclass';
 import { Degrees } from './../interfaces/Idegree';
@@ -8,11 +9,19 @@ import { Observable } from 'rxjs';
 import { ArrayType } from '@angular/compiler';
 import { Students } from '../interfaces/Istudent';
 import { Teacher } from '../interfaces/Iteacher';
+import { FirebaseStorage } from 'angularfire2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseServiceService {
+
+
+
+  private attendanceCollection: AngularFirestoreCollection<Attendance>;
+  attendance: Observable<Attendance[]>
+
+
   private coursesCollection : AngularFirestoreCollection<Course>;
   courses: Observable<Course[]>;
 
@@ -32,9 +41,15 @@ export class DatabaseServiceService {
   private teacherDoc: AngularFirestoreDocument<Teacher>;
   teacher: Observable<Teacher>;
 
+  private degreerDoc: AngularFirestoreDocument<Teacher>;
+  degree: Observable<Teacher>;
 
 
   constructor(private afs: AngularFirestore) {
+
+    this.attendanceCollection= this.afs.collection('Attendance');
+    this.attendance=this.attendanceCollection.valueChanges();
+
 
     this.teachersCollection= this.afs.collection('Teachers');
     this.teachers=this.teachersCollection.valueChanges();
@@ -55,6 +70,31 @@ export class DatabaseServiceService {
 
 
   }
+
+
+
+
+  makeStudentAttendance(info: any, obj: any):Promise<any>
+  {
+
+    // obj.forEach(element => {
+
+    //   this.attendanceCollection.doc(`${info.id}`).set(element.semester).then((attendance)=>{
+    //   })
+    //   .catch((err)=>{
+    //   })
+    // });
+    return new Promise((res,rej)=>{
+      this.attendanceCollection.doc(`${info}`).set(obj).then((attendance)=>{
+        res(attendance);
+      })
+      .catch((err)=>{
+        rej(err);
+      })
+    })
+
+  }
+
 
   getTeacherById(id:string)
   {
@@ -84,6 +124,19 @@ export class DatabaseServiceService {
     return new Promise((res,rej)=>{
         this.teacherDoc=this.afs.doc<Teacher>(`Teachers/${id}`);
         this.teacherDoc.update(teacher).then((teacher)=>{
+          res(teacher);
+        })
+        .catch((err)=>{
+          rej(err);
+        })
+    });
+  }
+
+
+  updateDegree(id:string,obj:any):Promise<any>{
+    return new Promise((res,rej)=>{
+        this.degreerDoc=this.afs.doc<any>(`Degrees/${id}`);
+        this.degreerDoc.update(JSON.parse('cou',obj)).then((teacher)=>{
           res(teacher);
         })
         .catch((err)=>{

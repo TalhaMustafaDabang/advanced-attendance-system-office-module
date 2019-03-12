@@ -1,3 +1,4 @@
+import { StorageAzureService } from './services/storage-azure.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { ModelsService } from './services/models.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -66,8 +67,8 @@ import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.compo
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     HttpClientModule,
+    HttpModule,
     RouterModule.forRoot(routes),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -78,7 +79,7 @@ import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.compo
 
   ],
   exports:[ModalModule],
-  providers: [ModelsService,DatabaseServiceService,AuthServiceService],
+  providers: [ModelsService,DatabaseServiceService,AuthServiceService,StorageAzureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

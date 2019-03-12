@@ -1,3 +1,4 @@
+import { Course } from './../../interfaces/Icourse';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseServiceService } from 'src/app/services/database-service.service';
 import { Degrees, coursesWithSemester } from './../../interfaces/Idegree';
@@ -13,7 +14,7 @@ export class AddDegreeComponent implements OnInit {
 
   degreeToAdd={courses:[]} as Degrees;
   addDegreeForm: FormGroup;
-
+  courses: Course[];
   constructor(private dbs: DatabaseServiceService,private ms: ModelsService){
 
     this.addDegreeForm = new FormGroup({
@@ -30,6 +31,9 @@ export class AddDegreeComponent implements OnInit {
         Validators.max(10),
       ]),
   });
+  this.dbs.getCourses().subscribe((courses)=>{
+    this.courses=courses;
+  });
 }
 
   ngOnInit() {
@@ -39,29 +43,37 @@ export class AddDegreeComponent implements OnInit {
 
   addDegree(value:any)
   {
+
+    this.degreeToAdd.cou = {
+
+    }
+
     let coursesWithSemester: {semester:number,offeredCourses: string[]}[]=new Array(value.semester);
 
     for (let index = 0; index < value.semesters; index++) {
 
        coursesWithSemester[index]={semester: index+1,offeredCourses: []};
+       let sem_name = 'Semester-'.concat((index+1).toString())
+       Object.defineProperty(this.degreeToAdd.cou,sem_name,{value:[]});
 
     }
 
     console.log(coursesWithSemester);
 
-    setTimeout(()=>{    this.dbs.getCourses().subscribe((courses)=>{
-      courses.forEach(course=>{
+      this.courses.forEach(course=>{
         course.offeredTo.forEach(offeredTo=>{
-          if(offeredTo.degree===value.title)
+          if(offeredTo.degree==value.title)
           {
-            // console.log(`course ${JSON.stringify(course)} with offered to ${offeredTo} to ${value.title} degree, bcoz ${offeredTo.degree} == ${value.title}`)
             coursesWithSemester[offeredTo.semester-1].offeredCourses.push(course.title)
-
+            let sem_name = 'Semester-'.concat((offeredTo.semester).toString())
+            Object.defineProperty(this.degreeToAdd.cou[sem_name],course.title,{value:[]});
           }
         })
-      })
-    });
-},3000)
+      });
+
+console.log(this.degreeToAdd.cou);
+      // this.degreeToAdd.cou= {};
+
     this.degreeToAdd.title=value.title;
     this.degreeToAdd.durationInMonths=value.durationInMonths;
     this.degreeToAdd.semesters=value.semesters;
@@ -70,6 +82,7 @@ export class AddDegreeComponent implements OnInit {
 
     this.dbs.addDegree(this.degreeToAdd)
     .then((Degree)=>{
+      this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
       console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
       this.degreeToAdd={courses:[]} as Degrees;
     })
