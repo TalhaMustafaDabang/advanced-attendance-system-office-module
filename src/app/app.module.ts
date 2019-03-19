@@ -62,7 +62,7 @@ import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.compo
     ClassesComponent,
     AddClassComponent,
     ShowClassComponent,
-    ShowTeacherComponent
+    ShowTeacherComponent,
   ],
   imports: [
     BrowserModule,

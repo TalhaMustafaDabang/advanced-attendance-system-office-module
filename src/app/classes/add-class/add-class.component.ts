@@ -5,8 +5,7 @@ import { DatabaseServiceService } from './../../services/database-service.servic
 import { Component, OnInit } from '@angular/core';
 import { Students } from 'src/app/interfaces/Istudent';
 import { Class } from 'src/app/interfaces/Iclass';
-import { ThrowStmt } from '@angular/compiler';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-class',
   templateUrl: './add-class.component.html',
@@ -93,6 +92,11 @@ ngOnDestroy(): void {
 
     this.dbs.addCalss(this.classToAdd)
     .then((classes)=>{
+Swal.fire(
+  'Done',
+  `Class ${this.classToAdd.id} added sucessfully!`,
+  'success'
+);
       console.log(`Class ${this.classToAdd.id} added sucessfully!`);
       this.classToAdd={} as Class;
 

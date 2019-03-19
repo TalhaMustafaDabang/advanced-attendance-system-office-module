@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { Class } from 'src/app/interfaces/Iclass';
 import { Students } from 'src/app/interfaces/Istudent';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-students',
@@ -42,7 +43,7 @@ export class AddStudentsComponent implements OnInit {
         Validators.required]),
       enrollmentId: new FormControl(null, [
         Validators.required]),
-      image: new FormControl(null, [Validators.required])
+      // image: new FormControl(null, [Validators.required])
     })
 
 
@@ -55,7 +56,7 @@ export class AddStudentsComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  //executed first automatically (3)
   uploadImage(event: any) {
     console.log("1");
     let file = event.target.files[0];
@@ -64,7 +65,7 @@ export class AddStudentsComponent implements OnInit {
 
 
     if (this.studentsIds.indexOf(this.enrolId) == -1) {
-      this.storageAzureService.uploadImage(newFile, { 'id': this.enrolId, 'cls': this.classId }).then((e) => { console.log(e); this.imageUrl = e;this.student.imageId=e ; this.createStudent() }).catch((e) => { console.log(e) });
+      this.storageAzureService.uploadImage(newFile, { 'id': this.enrolId, 'cls': this.classId }).then((e) => { console.log(e); this.imageUrl = e; this.student.imageId = e; this.createStudent() }).catch((e) => { console.log(e) });
     }
     else {
       alert(`Sorry, Enrollment Id ${this.enrolId} already exits in records, try again with a new one please`!)
@@ -73,6 +74,7 @@ export class AddStudentsComponent implements OnInit {
   }
 
 
+  //called from upload image (2)
   createStudent() {
     this.storageAzureService.makeStudent(this.enrolId).toPromise().then((personId) => {
 
@@ -81,15 +83,17 @@ export class AddStudentsComponent implements OnInit {
       console.log(personId, this.student.personId);
       this.storageAzureService.addFace(personId, this.imageUrl).toPromise().then((presistedFaceId) => {
         console.log('Face Added Successfully! ', presistedFaceId);
-        this.storageAzureService.train().toPromise().then((res)=>{
-          console.log('Trained Successfully!',res)
-        }).catch((e)=>{ });
+        this.storageAzureService.train().toPromise().then((res) => {
+          console.log('Trained Successfully!', res)
+        }).catch((e) => { });
 
       }).catch((e) => { });
     })
       .catch(e => { })
   }
 
+
+  //will be triggered on button click event which will be enablled after the 2 step completes.
   addStudent(value: any) {
     if (this.studentsIds.indexOf(value.enrollmentId) == -1) {
       this.student.age = value.age;
@@ -101,7 +105,10 @@ export class AddStudentsComponent implements OnInit {
       this.student.status = value.status;
 
       this.dbs.addStudents(this.student).then((student) => {
+        console.log("got this student",student);
         this.makeAttendanceDoc();
+
+
 
         console.log(`Student ${value.enrollmentId} added sucessfully!`)
       })
@@ -119,6 +126,7 @@ export class AddStudentsComponent implements OnInit {
   }
 
 
+  //will be called after student is added from database from add student
   makeAttendanceDoc() {
 
     let semesterWithCourses = {};
@@ -131,6 +139,7 @@ export class AddStudentsComponent implements OnInit {
       if (element.id == this.student.class) {
         this.degrees.forEach((degree) => {
           if (degree.title == element.degree) {
+            console.log(degree);
             console.log("IN", degree.cou);
             semesterWithCourses = degree.cou;
           }
@@ -144,10 +153,14 @@ export class AddStudentsComponent implements OnInit {
       .then((res) => {
         console.log(res);
 
+        Swal.fire(
+          'Done',
+          `Student ${this.student.enrollmentId} added sucessfully!`,
+          'success'
+        );
 
 
-
-        // this.student = {} as Students;
+        this.student = {} as Students;
       })
       .catch((e) => { alert(e) });
 

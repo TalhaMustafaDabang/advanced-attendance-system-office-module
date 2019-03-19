@@ -3,6 +3,7 @@ import { Course, offeredTo } from './../../interfaces/Icourse';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseServiceService } from 'src/app/services/database-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-course',
@@ -50,7 +51,16 @@ export class AddCourseComponent implements OnInit {
 
     this.dbs.addCourse(this.courseToAdd)
     .then((course)=>{
-    console.log(`Course ${this.courseToAdd.title} added sucessfully!`);
+Swal.fire(
+  'Done',
+  `Course ${this.courseToAdd.title} added sucessfully!`,
+  'success'
+);
+
+
+
+
+      console.log(`Course ${this.courseToAdd.title} added sucessfully!`);
     this.courseToAdd={offeredTo:[]} as Course;
     objs=null;
     })

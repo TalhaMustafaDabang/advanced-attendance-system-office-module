@@ -134,9 +134,10 @@ export class DatabaseServiceService {
 
 
   updateDegree(id:string,obj:any):Promise<any>{
+    let cou = obj;
     return new Promise((res,rej)=>{
         this.degreerDoc=this.afs.doc<any>(`Degrees/${id}`);
-        this.degreerDoc.update(JSON.parse('cou',obj)).then((teacher)=>{
+        this.degreerDoc.update(cou).then((teacher)=>{
           res(teacher);
         })
         .catch((err)=>{

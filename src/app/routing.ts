@@ -64,6 +64,7 @@ export const routes: Routes =
     component: DegreesComponent ,
     canActivate: [AuthGuardService],
 },
+
 {
     path:'classes',
     component: ClassesComponent  ,

@@ -4,6 +4,7 @@ import { DatabaseServiceService } from 'src/app/services/database-service.servic
 import { Degrees, coursesWithSemester } from './../../interfaces/Idegree';
 import { Component, OnInit } from '@angular/core';
 import { ModelsService } from 'src/app/services/models.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-degree',
@@ -48,7 +49,7 @@ export class AddDegreeComponent implements OnInit {
 
     }
 
-    let coursesWithSemester: {semester:number,offeredCourses: string[]}[]=new Array(value.semester);
+    let coursesWithSemester: {semester:number,offeredCourses: string[]}[]=new Array(value.semesters);
 
     for (let index = 0; index < value.semesters; index++) {
 
@@ -58,6 +59,7 @@ export class AddDegreeComponent implements OnInit {
 
     }
 
+    console.log(this.degreeToAdd.cou);
     console.log(coursesWithSemester);
 
       this.courses.forEach(course=>{
@@ -82,7 +84,16 @@ console.log(this.degreeToAdd.cou);
 
     this.dbs.addDegree(this.degreeToAdd)
     .then((Degree)=>{
+      console.log("added db response",Degree)
       this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
+
+
+
+Swal.fire(
+  'Done',
+  `Degree ${this.degreeToAdd.title} added sucessfully!`,
+  'success'
+);
       console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
       this.degreeToAdd={courses:[]} as Degrees;
     })

@@ -3,6 +3,7 @@ import { DatabaseServiceService } from './../../services/database-service.servic
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModelsService } from 'src/app/services/models.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-teacher',
@@ -42,6 +43,13 @@ export class AddTeacherComponent implements OnInit {
       console.log(this.teacherToAdd)
       this.dbs.addTeacher(this.teacherToAdd).then((teacher) => {
         this.teacherToAdd=null;
+
+        Swal.fire(
+          'Done',
+          `Added Successfully In Db!`,
+          'success'
+        );
+
         console.log('Added Successfully In Db!');
       })
         .catch((err) => {
