@@ -85,7 +85,7 @@ console.log(this.degreeToAdd.cou);
     this.dbs.addDegree(this.degreeToAdd)
     .then((Degree)=>{
       console.log("added db response",Degree)
-      this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
+      // this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
 
 
 

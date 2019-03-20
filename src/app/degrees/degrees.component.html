@@ -14,6 +14,7 @@
             <th scope="col">Duration</th>
             <th scope="col">Semesters</th>
             <th scope="col">Courses Details</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody *ngFor="let degree of degrees">
@@ -23,6 +24,9 @@
             <td>{{degree.semesters}}</td>
             <td>
               <button (click)="openDegreeDetailsModal(degreeDetailsModal,degree)" type="button" class="btn btn-info btn-lg btn-sm">Offered To</button>
+            </td>
+            <td>
+              <button (click)="delete(degree.title)" type="button" class="close" data-dismiss="alert">Delete</button>
             </td>
           </tr>
         </tbody>

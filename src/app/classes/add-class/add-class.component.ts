@@ -92,6 +92,7 @@ ngOnDestroy(): void {
 
     this.dbs.addCalss(this.classToAdd)
     .then((classes)=>{
+
 Swal.fire(
   'Done',
   `Class ${this.classToAdd.id} added sucessfully!`,

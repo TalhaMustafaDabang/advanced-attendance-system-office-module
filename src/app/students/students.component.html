@@ -15,15 +15,18 @@
             <th scope="col">Father Name</th>
             <th scope="col">Class</th>
             <th scope="col">Status</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody *ngFor="let student of students">
-          <tr (click)="openStudentInfoModal(info,student)" class="table-primary">
-            <th scope="row">{{student.enrollmentId}}</th>
+          <tr class="table-primary">
+            <th (click)="openStudentInfoModal(info,student)" scope="row">{{student.enrollmentId}}</th>
             <td>{{student.firstName}}</td>
             <td>{{student.fatherName}}</td>
             <td>{{student.class}}</td>
             <td>{{student.status}}</td>
+            <td><button class="btn btn-md btn-danger" (click)="delete(student.enrollmentId)">Delete</button></td>
+
           </tr>
         </tbody>
       </table>

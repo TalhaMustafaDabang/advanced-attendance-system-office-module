@@ -4,6 +4,7 @@ import { Course } from './../interfaces/Icourse';
 import { Component, OnInit } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal/public_api';
 import { ModelsService } from '../services/models.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courses',
@@ -37,6 +38,19 @@ export class CoursesComponent implements OnInit {
     this.ms.openModal(template);
   }
 
+  delete(courseId:string)
+  {
+    this.dbs.deleteDoc('Courses',courseId)
+    .then((e)=>{
+
+Swal.fire(
+  'Deleted',
+  `Course ${courseId} deleted sucessfully!`,
+  'success'
+);
+    })
+    .catch(e=>{alert(e)});
+  }
 
   closeModal()
   {

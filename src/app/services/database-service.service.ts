@@ -73,6 +73,20 @@ export class DatabaseServiceService {
 
 
 
+  deleteDoc(collectionName:string, docId:string):Promise<any>{
+    return new Promise((res,rej)=>{
+
+       this.afs.doc(collectionName+'/'+docId).delete()
+       .then((resp)=>{
+          res(resp);
+       })
+       .catch(e=>rej(e));
+
+
+    })
+  }
+
+
 
   makeStudentAttendance(info: any, obj: any):Promise<any>
   {

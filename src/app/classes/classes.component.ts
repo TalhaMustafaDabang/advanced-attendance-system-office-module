@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { DatabaseServiceService } from 'src/app/services/database-service.service';
 import { FormGroup } from '@angular/forms';
 import { ModelsService } from './../services/models.service';
@@ -5,7 +6,6 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, OnInit } from '@angular/core';
 import { Class } from '../interfaces/Iclass';
 import { Router, ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-classes',
   templateUrl: './classes.component.html',
@@ -35,6 +35,19 @@ export class ClassesComponent implements OnInit {
     // this.ms.openModal(template);
   }
 
+  delete(classId:string)
+  {
+    this.dbs.deleteDoc('Classes',classId)
+    .then((e)=>{
+
+Swal.fire(
+  'Deleted',
+  `Class ${classId} deleted sucessfully!`,
+  'success'
+);
+    })
+    .catch(e=>{alert(e)});
+  }
 
   openFormModal(template:HTMLInputElement)
   {

@@ -13,13 +13,17 @@
             <th scope="col">Teacher Id</th>
             <th scope="col">Name</th>
             <th scope="col">Detp.</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody *ngFor="let teacher of teachers">
-          <tr (click)="openClassesInfoPage(teacher)" class="table-primary">
-            <th scope="row">{{teacher.id}}</th>
+          <tr class="table-primary">
+            <th (click)="openClassesInfoPage(teacher)" scope="row">{{teacher.id}}</th>
             <td>{{teacher.firstName}} {{teacher.lastName}}</td>
             <td>{{teacher.dept}}</td>
+            <td>
+              <button class="btn btn-md btn-danger" (click)="delete(teacher.id)">Delete</button>
+            </td>
           </tr>
         </tbody>
       </table>

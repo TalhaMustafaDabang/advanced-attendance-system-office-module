@@ -16,16 +16,18 @@
             <th scope="col">Section</th>
             <th scope="col">Shift</th>
             <th scope="col">Enrollment Year</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody *ngFor="let class of classes">
-          <tr (click)="openClassesInfoModal(info,class)" class="table-primary">
-            <th scope="row">{{class.id}}</th>
+          <tr class="table-primary">
+            <th (click)="openClassesInfoModal(info,class)" scope="row">{{class.id}}</th>
             <td>{{class.degree}}</td>
             <td>{{class.status}}</td>
             <td>{{class.section}}</td>
             <td>{{class.shift}}</td>
             <td>{{class.enrollmentYear}}</td>
+            <td><button class="btn btn-danger" (click)="delete(class.id)">Delete</button></td>
           </tr>
         </tbody>
       </table>

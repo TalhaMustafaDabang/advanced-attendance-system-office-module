@@ -14,6 +14,7 @@
             <th scope="col">Credit Hours</th>
             <th scope="col">Total Classes</th>
             <th scope="col">Offered To</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody *ngFor="let course of courses">
@@ -23,6 +24,9 @@
             <td>{{course.totalClasses}}</td>
             <td>
               <button (click)="openOfferedToModal(offeredToDetails,course)" type="button" class="btn btn-info btn-lg btn-sm">Offered To</button>
+            </td>
+            <td>
+              <button class="btn btn-md btn-danger" (click)="delete(course.title)">Delete</button>
             </td>
           </tr>
         </tbody>
