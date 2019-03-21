@@ -76,12 +76,12 @@ export class AddStudentsComponent implements OnInit {
 
   //called from upload image (2)
   createStudent() {
-    this.storageAzureService.makeStudent(this.enrolId).toPromise().then((personId) => {
-
+    this.storageAzureService.makeStudent(this.enrolId)
+    .toPromise().then((personId)=>{
+      this.student.personId=personId['personId'];
       console.log('Student Added Successfully!');
-      this.student.personId = <string>personId;
-      console.log(personId, this.student.personId);
-      this.storageAzureService.addFace(personId, this.imageUrl).toPromise().then((presistedFaceId) => {
+      console.log(personId, this.student.personId,"ssss");
+      this.storageAzureService.addFace(this.student.personId, this.imageUrl).toPromise().then((presistedFaceId) => {
         console.log('Face Added Successfully! ', presistedFaceId);
         this.storageAzureService.train().toPromise().then((res) => {
           console.log('Trained Successfully!', res)

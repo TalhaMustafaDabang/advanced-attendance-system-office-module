@@ -1,3 +1,4 @@
+import { StorageAzureService } from './../services/storage-azure.service';
 import { Students } from './../interfaces/Istudent';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -11,13 +12,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  addStudentForm:FormGroup;
-  students:Students[];
+  addStudentForm: FormGroup;
+  students: Students[];
   selectedStudnet: Students;
-  constructor(private dbs:DatabaseServiceService,private ms: ModelsService) {
+  constructor(private sas: StorageAzureService, private dbs: DatabaseServiceService, private ms: ModelsService) {
 
-    dbs.getStudents().subscribe((students)=>{
-      this.students=students;
+    dbs.getStudents().subscribe((students) => {
+      this.students = students;
     });
 
   }
@@ -25,30 +26,34 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
   }
 
-  delete(studentId:string)
-  {
-    this.dbs.deleteDoc('Students',studentId)
-    .then((e)=>{
+  delete(studentId: string) {
+    this.dbs.deleteDoc('Students', studentId)
+      .then((e) => {
 
-Swal.fire(
-  'Deleted',
-  `Student ${studentId} deleted sucessfully!`,
-  'success'
-);
-    })
-    .catch(e=>{alert(e)});
+
+        this.sas.deletedPersonAndFace(this.students[this.students.findIndex(e => e.enrollmentId == studentId)].personId)
+          .toPromise().then((e) => {
+
+            Swal.fire(
+              'Deleted',
+              `Student ${studentId} deleted sucessfully!`,
+              'success'
+            );
+          })
+          .catch(e=>{alert(e)});
+
+      })
+      .catch(e => { alert(e) });
   }
 
 
-  openStudentInfoModal(template:HTMLInputElement,student: Students)
-  {
-    this.selectedStudnet=student;
+  openStudentInfoModal(template: HTMLInputElement, student: Students) {
+    this.selectedStudnet = student;
     this.ms.openModal(template);
   }
 
 
-  openFormModal(template:HTMLInputElement)
-  {
+  openFormModal(template: HTMLInputElement) {
     this.ms.openModal(template);
   }
 

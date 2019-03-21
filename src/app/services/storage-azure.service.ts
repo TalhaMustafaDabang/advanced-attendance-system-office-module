@@ -34,8 +34,7 @@ export class StorageAzureService {
 
       })
     };
-   return this.http.post("https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons", { "name": enrollId }, httpOptions);
-
+   return this.http.post("https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons", { "name": enrollId }, httpOptions)
   }
 
 
@@ -98,6 +97,24 @@ export class StorageAzureService {
         });
 
     });
+  }
+
+
+  deletedPersonAndFace(personId:string){
+
+  let deletedApiUrl=`https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons/${personId}`
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Origin': 'http://localhost:4200',
+        'Ocp-Apim-Subscription-Key': this.Key1
+
+      })
+    };
+   return this.http.delete(deletedApiUrl, httpOptions);
+
+
   }
 
 
