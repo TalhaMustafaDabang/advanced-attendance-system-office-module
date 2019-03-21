@@ -82,25 +82,26 @@ console.log(this.degreeToAdd.cou);
   this.degreeToAdd.courses=coursesWithSemester;
     console.log(this.degreeToAdd);
 
-    this.dbs.addDegree(this.degreeToAdd)
-    .then((Degree)=>{
-      console.log("added db response",Degree)
-      // this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
+
+//     this.dbs.addDegree(this.degreeToAdd)
+//     .then((Degree)=>{
+//       console.log("added db response",Degree)
+//       // this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
 
 
 
-Swal.fire(
-  'Done',
-  `Degree ${this.degreeToAdd.title} added sucessfully!`,
-  'success'
-);
-      console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
-      this.degreeToAdd={courses:[]} as Degrees;
-    })
-    .catch((err)=>{
-      console.log(`Sorry, Degree ${this.degreeToAdd.title} is not added due to`,err)
-      this.degreeToAdd={courses:[]} as Degrees;
-    });
+// Swal.fire(
+//   'Done',
+//   `Degree ${this.degreeToAdd.title} added sucessfully!`,
+//   'success'
+// );
+//       console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
+//       this.degreeToAdd={courses:[]} as Degrees;
+//     })
+//     .catch((err)=>{
+//       console.log(`Sorry, Degree ${this.degreeToAdd.title} is not added due to`,err)
+//       this.degreeToAdd={courses:[]} as Degrees;
+//     });
   }
 
 

@@ -43,7 +43,7 @@ export class AddStudentsComponent implements OnInit {
         Validators.required]),
       enrollmentId: new FormControl(null, [
         Validators.required]),
-      // image: new FormControl(null, [Validators.required])
+      image: new FormControl(null, [Validators.required])
     })
 
 

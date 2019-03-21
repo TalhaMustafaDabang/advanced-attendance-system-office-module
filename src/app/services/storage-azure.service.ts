@@ -13,9 +13,8 @@ export class StorageAzureService {
 
   Endpoint = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0";
 
-  Key1 = "93acf35265184dfa8d2d4a0b75b949e7";
+  Key1 = "437b5edf675f4197933508001bd44932";
 
-  Key2 = "db8d697a7fe04dd1b62872bc36e6dba5";
 
 
 
