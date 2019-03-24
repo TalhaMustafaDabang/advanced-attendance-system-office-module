@@ -99,7 +99,7 @@ export class DatabaseServiceService {
     //   })
     // });
     return new Promise((res,rej)=>{
-      this.attendanceCollection.doc(`${info}`).set(obj).then((attendance)=>{
+      this.attendanceCollection.doc(`${info}`).set({'semesters':[]}).then((attendance)=>{
         res(attendance);
       })
       .catch((err)=>{

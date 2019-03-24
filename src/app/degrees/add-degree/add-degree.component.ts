@@ -1,3 +1,4 @@
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Course } from './../../interfaces/Icourse';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseServiceService } from 'src/app/services/database-service.service';
@@ -5,6 +6,8 @@ import { Degrees, coursesWithSemester } from './../../interfaces/Idegree';
 import { Component, OnInit } from '@angular/core';
 import { ModelsService } from 'src/app/services/models.service';
 import Swal from 'sweetalert2';
+import * as firebase from 'firebase';
+// import { FirebaseFirestore } from 'angularfire2';
 
 @Component({
   selector: 'app-add-degree',
@@ -16,7 +19,7 @@ export class AddDegreeComponent implements OnInit {
   degreeToAdd={courses:[]} as Degrees;
   addDegreeForm: FormGroup;
   courses: Course[];
-  constructor(private dbs: DatabaseServiceService,private ms: ModelsService){
+  constructor(private afs: AngularFirestore, private dbs: DatabaseServiceService,private ms: ModelsService){
 
     this.addDegreeForm = new FormGroup({
       title: new FormControl(null,[
@@ -38,6 +41,7 @@ export class AddDegreeComponent implements OnInit {
 }
 
   ngOnInit() {
+
   }
 
 
@@ -45,30 +49,32 @@ export class AddDegreeComponent implements OnInit {
   addDegree(value:any)
   {
 
-    this.degreeToAdd.cou = {
-
-    }
+    // this.degreeToAdd.cou=new Array(8);
 
     let coursesWithSemester: {semester:number,offeredCourses: string[]}[]=new Array(value.semesters);
 
     for (let index = 0; index < value.semesters; index++) {
 
        coursesWithSemester[index]={semester: index+1,offeredCourses: []};
-       let sem_name = 'Semester-'.concat((index+1).toString())
-       Object.defineProperty(this.degreeToAdd.cou,sem_name,{value:[]});
+      //  let sem_name = 'Semester-'.concat((index+1).toString())
+      //  this.degreeToAdd.cou[index]={};
+      //  Object.defineProperty(this.degreeToAdd.cou[index],sem_name,[]);
+      //  Object.defineProperty(this.degreeToAdd.cou[index],sem_name,{});
 
     }
 
-    console.log(this.degreeToAdd.cou);
-    console.log(coursesWithSemester);
+    // console.log(this.degreeToAdd.cou);
+    // console.log(coursesWithSemester);
 
       this.courses.forEach(course=>{
         course.offeredTo.forEach(offeredTo=>{
           if(offeredTo.degree==value.title)
           {
             coursesWithSemester[offeredTo.semester-1].offeredCourses.push(course.title)
-            let sem_name = 'Semester-'.concat((offeredTo.semester).toString())
-            Object.defineProperty(this.degreeToAdd.cou[sem_name],course.title,{value:[]});
+            // let sem_name = 'Semester-'.concat((offeredTo.semester).toString())
+            // let ct = course.title;
+            // this.degreeToAdd.cou[offeredTo.semester-1].sem_name.push({});
+            // Object.defineProperty(this.degreeToAdd.cou[offeredTo.semester-1].sem_name[0],ct,[]);
           }
         })
       });
@@ -80,28 +86,43 @@ console.log(this.degreeToAdd.cou);
     this.degreeToAdd.durationInMonths=value.durationInMonths;
     this.degreeToAdd.semesters=value.semesters;
   this.degreeToAdd.courses=coursesWithSemester;
-    console.log(this.degreeToAdd);
+    console.log("ppp",this.degreeToAdd);
+
+    // Object.defineProperty(this.degreeToAdd.cou,'n',value);
+    // let obj = {
+    //   sem: this.degreeToAdd.cou,
+    //   addi: 'aaaa'
+    // };
+    // this.degreeToAdd.cou=obj;
+
+    // firebase.app().firestore().collection('Degrees')..add(this.degreeToAdd).then((e)=>{
 
 
-//     this.dbs.addDegree(this.degreeToAdd)
-//     .then((Degree)=>{
-//       console.log("added db response",Degree)
-//       // this.dbs.updateDegree(this.degreeToAdd.title,this.degreeToAdd.cou);
+      // let arrr=new Array();
+      // Object.keys(this.degreeToAdd.cou).forEach((key,index)=>{
+      //   console.log(key,index)
+      // });
+
+    this.dbs.addDegree(this.degreeToAdd)
+    .then((Degree)=>{
+      console.log("added db response",Degree);
 
 
 
-// Swal.fire(
-//   'Done',
-//   `Degree ${this.degreeToAdd.title} added sucessfully!`,
-//   'success'
-// );
-//       console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
-//       this.degreeToAdd={courses:[]} as Degrees;
-//     })
-//     .catch((err)=>{
-//       console.log(`Sorry, Degree ${this.degreeToAdd.title} is not added due to`,err)
-//       this.degreeToAdd={courses:[]} as Degrees;
-//     });
+
+
+Swal.fire(
+  'Done',
+  `Degree ${this.degreeToAdd.title} added sucessfully!`,
+  'success'
+);
+      console.log(`Degree ${this.degreeToAdd.title} added sucessfully!`);
+      this.degreeToAdd={courses:[]} as Degrees;
+    })
+    .catch((err)=>{
+      console.log(`Sorry, Degree ${this.degreeToAdd.title} is not added due to`,err)
+      this.degreeToAdd={courses:[]} as Degrees;
+    });
   }
 
 

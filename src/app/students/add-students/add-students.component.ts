@@ -1,6 +1,5 @@
 import { StorageAzureService } from './../../services/storage-azure.service';
 import { Course } from './../../interfaces/Icourse';
-import { element } from 'protractor';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModelsService } from './../../services/models.service';
 import { DatabaseServiceService } from './../../services/database-service.service';
@@ -8,7 +7,6 @@ import { Degrees } from './../../interfaces/Idegree';
 import { Component, OnInit } from '@angular/core';
 import { Class } from 'src/app/interfaces/Iclass';
 import { Students } from 'src/app/interfaces/Istudent';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -129,7 +127,8 @@ export class AddStudentsComponent implements OnInit {
   //will be called after student is added from database from add student
   makeAttendanceDoc() {
 
-    let semesterWithCourses = {};
+
+    let semesterWithCourses;
 
     let obj = {
       id: this.student.enrollmentId,
@@ -139,13 +138,17 @@ export class AddStudentsComponent implements OnInit {
       if (element.id == this.student.class) {
         this.degrees.forEach((degree) => {
           if (degree.title == element.degree) {
-            console.log(degree);
-            console.log("IN", degree.cou);
-            semesterWithCourses = degree.cou;
+            semesterWithCourses=new Array(degree.semesters);
+
+            // console.log(degree);
+            // console.log("IN", degree.cou);
+            // semesterWithCourses = degree.cou;
           }
         })
       }
     });
+
+
 
     console.log(semesterWithCourses);
 

@@ -46,5 +46,38 @@
 </ng-template>
 
 <ng-template #info>
+
+  <div style="display: flex;flex-flow: column wrap">
+    <section style="align-items: center;display:flex;flex-flow: row wrap" id="header">
+      <img [src]="this.selectedStudnet.imageId" alt="">
+     <div style="margin-left: 10px;display: flex;flex-direction: column">
+      <h2 style="color: black;font-weight: bolder">
+        {{selectedStudnet.firstName}}
+      </h2>
+      <br>
+      <h3 style="color: black;font-weight: bolder">
+        {{selectedStudnet.enrollmentId}}
+      </h3>
+      <button class="btn btn-md btn-success">See Attendance</button>
+     </div>
+    </section>
+    <section id="azureInfo">
+      <h4>
+       <span>PersonID:</span> {{selectedStudnet.personId }}
+      </h4>
+    </section>
+    <section id="generalInfo">
+      <h3><span>Class:</span>
+          {{selectedStudnet.class}}
+      </h3>
+
+      <h3>
+        <span>Semester:</span>
+        {{selectedStudnet.status}}
+      </h3>
+
+    </section>
+  </div>
+
 </ng-template>
 

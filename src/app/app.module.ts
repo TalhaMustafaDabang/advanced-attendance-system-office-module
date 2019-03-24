@@ -23,7 +23,7 @@ import { AddClassComponent } from './classes/add-class/add-class.component';
 
 
 
-import { AngularFireModule, FirebaseAuth } from 'angularfire2';
+import { AngularFireModule, FirebaseAuth, FirebaseApp, FirebaseFirestore } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -41,7 +41,7 @@ import { routes } from './routing';
 import { DatabaseServiceService } from './services/database-service.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
 import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.component';
-
+import * as firebase from 'firebase';
 
 @NgModule({
   declarations: [
@@ -76,10 +76,13 @@ import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.compo
     ModalModule.forRoot(),
     ReactiveFormsModule,
     AngularFirestoreModule,
-
   ],
   exports:[ModalModule],
   providers: [ModelsService,DatabaseServiceService,AuthServiceService,StorageAzureService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(){
+    firebase.initializeApp(environment.firebase);
+  }
+}
