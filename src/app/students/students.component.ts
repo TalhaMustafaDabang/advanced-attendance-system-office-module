@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseServiceService } from '../services/database-service.service';
 import { ModelsService } from '../services/models.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -15,7 +16,7 @@ export class StudentsComponent implements OnInit {
   addStudentForm: FormGroup;
   students: Students[];
   selectedStudnet: Students;
-  constructor(private sas: StorageAzureService, private dbs: DatabaseServiceService, private ms: ModelsService) {
+  constructor(private router: Router,private sas: StorageAzureService, private dbs: DatabaseServiceService, private ms: ModelsService) {
 
     dbs.getStudents().subscribe((students) => {
       this.students = students;
@@ -24,6 +25,11 @@ export class StudentsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  showAttendance(id:string){
+    this.ms.closeModal();
+    this.router.navigate(['attendance/',id]);
   }
 
   delete(studentId: string) {

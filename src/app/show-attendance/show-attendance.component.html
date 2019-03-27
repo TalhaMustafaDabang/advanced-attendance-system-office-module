@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h1 style="text-align: center;margin-top: -50px" class="display-3">{{studentId}}</h1>
+  <br>
+  <div class=row>
+    <div class="col">
+      <ul *ngFor="let semester of attendance let i=index">
+        <li style="cursor: pointer" (click)="selectSemester(i)">
+            {{semester}}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="courses.length>0" class="col">
+        <ul *ngFor="let course of courses let i=index">
+            <li>
+                {{course}}
+            </li>
+          </ul>
+    </div>
+
+    <div class="col">
+
+    </div>
+  </div>
+  </div>
+

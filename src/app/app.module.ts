@@ -42,6 +42,7 @@ import { DatabaseServiceService } from './services/database-service.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
 import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.component';
 import * as firebase from 'firebase';
+import { ShowAttendanceComponent } from './show-attendance/show-attendance.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import * as firebase from 'firebase';
     AddClassComponent,
     ShowClassComponent,
     ShowTeacherComponent,
+    ShowAttendanceComponent,
   ],
   imports: [
     BrowserModule,

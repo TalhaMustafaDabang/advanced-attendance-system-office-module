@@ -49,38 +49,33 @@ export class AddDegreeComponent implements OnInit {
   addDegree(value:any)
   {
 
-    // this.degreeToAdd.cou=new Array(8);
+    this.degreeToAdd.cou={};
 
     let coursesWithSemester: {semester:number,offeredCourses: string[]}[]=new Array(value.semesters);
 
     for (let index = 0; index < value.semesters; index++) {
 
        coursesWithSemester[index]={semester: index+1,offeredCourses: []};
-      //  let sem_name = 'Semester-'.concat((index+1).toString())
-      //  this.degreeToAdd.cou[index]={};
-      //  Object.defineProperty(this.degreeToAdd.cou[index],sem_name,[]);
-      //  Object.defineProperty(this.degreeToAdd.cou[index],sem_name,{});
-
+       let sem_name = 'Semester-'.concat((index+1).toString())
+       this.degreeToAdd.cou[sem_name]= new Array();
     }
 
-    // console.log(this.degreeToAdd.cou);
-    // console.log(coursesWithSemester);
 
       this.courses.forEach(course=>{
         course.offeredTo.forEach(offeredTo=>{
           if(offeredTo.degree==value.title)
           {
             coursesWithSemester[offeredTo.semester-1].offeredCourses.push(course.title)
-            // let sem_name = 'Semester-'.concat((offeredTo.semester).toString())
-            // let ct = course.title;
-            // this.degreeToAdd.cou[offeredTo.semester-1].sem_name.push({});
-            // Object.defineProperty(this.degreeToAdd.cou[offeredTo.semester-1].sem_name[0],ct,[]);
+            let sem_name = 'Semester-'.concat((offeredTo.semester).toString())
+            let ct = course.title;
+            let obj = {};
+            obj[ct]=new Array();
+            this.degreeToAdd.cou[sem_name].push(obj);
           }
         })
       });
 
 console.log(this.degreeToAdd.cou);
-      // this.degreeToAdd.cou= {};
 
     this.degreeToAdd.title=value.title;
     this.degreeToAdd.durationInMonths=value.durationInMonths;

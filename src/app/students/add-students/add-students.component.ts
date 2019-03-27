@@ -138,11 +138,7 @@ export class AddStudentsComponent implements OnInit {
       if (element.id == this.student.class) {
         this.degrees.forEach((degree) => {
           if (degree.title == element.degree) {
-            semesterWithCourses=new Array(degree.semesters);
-
-            // console.log(degree);
-            // console.log("IN", degree.cou);
-            // semesterWithCourses = degree.cou;
+            semesterWithCourses=degree.cou;
           }
         })
       }

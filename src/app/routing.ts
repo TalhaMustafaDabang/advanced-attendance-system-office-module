@@ -1,3 +1,4 @@
+import { ShowAttendanceComponent } from './show-attendance/show-attendance.component';
 import { ShowTeacherComponent } from './teachers/show-teacher/show-teacher.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ShowClassComponent } from './classes/show-class/show-class.component';
@@ -16,7 +17,12 @@ import { ClassesComponent } from './classes/classes.component';
 
 export const routes: Routes =
 [
+    {
+        path:'attendance/:id',
+        component: ShowAttendanceComponent,
+        canActivate: [AuthGuardService],
 
+      },
 {
   path:'classs/:id',
   component: ShowClassComponent,

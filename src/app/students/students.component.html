@@ -58,7 +58,7 @@
       <h3 style="color: black;font-weight: bolder">
         {{selectedStudnet.enrollmentId}}
       </h3>
-      <button class="btn btn-md btn-success">See Attendance</button>
+      <button (click)="showAttendance(selectedStudnet.enrollmentId)" class="btn btn-md btn-success">See Attendance</button>
      </div>
     </section>
     <section id="azureInfo">
