@@ -23,7 +23,9 @@ export class ShowAttendanceComponent implements OnInit {
 
   selectSemester(index:any)
   {
-    // Object.keys(this.attendance[index]).forEach;
+    Object.keys(this.attendance[index]).forEach(element=>{
+      this.courses.push(element);
+    });
   }
 
   ngOnInit() {

@@ -13,9 +13,10 @@ export class StorageAzureService {
 
   Endpoint = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0";
 
-  Key1 = "437b5edf675f4197933508001bd44932";
+  // Key1 = "437b5edf675f4197933508001bd44932"; old
 
-
+  Key1 = "a0644eb3014b46038a56e736a47bf37a";//new
+  // Key 2: e09d95da9cee4fbea9ca0e392c7466f6 //new
 
 
 
@@ -27,19 +28,18 @@ export class StorageAzureService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Methods': 'POST',
         'Access-Control-Allow-Origin': 'http://localhost:4200',
         'Ocp-Apim-Subscription-Key': this.Key1
 
       })
     };
-   return this.http.post("https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons", { "name": enrollId }, httpOptions)
+    return this.http.post("https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons", { "name": enrollId }, httpOptions)
   }
 
 
-  train()
-  {
+  train() {
     let endPointForTraining = this.Endpoint + `/persongroups/students/train`;
 
 
@@ -51,12 +51,12 @@ export class StorageAzureService {
 
       })
     };
-   return this.http.post(endPointForTraining, {}, httpOptions);
+    return this.http.post(endPointForTraining, {}, httpOptions);
   }
 
 
 
-  addFace(personId,imgUrl){
+  addFace(personId, imgUrl) {
     let endPointForAddingFace = this.Endpoint + `/persongroups/students/persons/${personId}/persistedFaces`;
 
 
@@ -68,7 +68,7 @@ export class StorageAzureService {
 
       })
     };
-   return this.http.post(endPointForAddingFace, { "url": imgUrl }, httpOptions);
+    return this.http.post(endPointForAddingFace, { "url": imgUrl }, httpOptions);
 
   }
 
@@ -100,9 +100,9 @@ export class StorageAzureService {
   }
 
 
-  deletedPersonAndFace(personId:string){
+  deletedPersonAndFace(personId: string) {
 
-  let deletedApiUrl=`https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons/${personId}`
+    let deletedApiUrl = `https://westcentralus.api.cognitive.microsoft.com/face/v1.0/persongroups/students/persons/${personId}`
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -112,7 +112,7 @@ export class StorageAzureService {
 
       })
     };
-   return this.http.delete(deletedApiUrl, httpOptions);
+    return this.http.delete(deletedApiUrl, httpOptions);
 
 
   }
